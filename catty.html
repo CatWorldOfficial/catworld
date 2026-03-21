@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Cat World - Ultimate Feline Encyclopedia</title>
+  <style>
+    /* Global Styles */
+    :root {
+      --bg-color: beige;
+      --section-bg: #fff8dc;
+      --text-color: #333;
+      --header-bg: burlywood;
+      --nav-bg: bisque;
+      --accent: #8b4513;
+      --card-bg: bisque;
+    }
+
+    body.dark-mode {
+      --bg-color: #2c2c2c;
+      --section-bg: #3d3d3d;
+      --text-color: #f5f5f5;
+      --header-bg: #5d4037;
+      --nav-bg: #4e342e;
+      --accent: #d7ccc8;
+      --card-bg: #546e7a;
+    }
+
+    body {
+      font-family: 'Trebuchet MS', sans-serif;
+      margin: 0;
+      background: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    header {
+      background: var(--header-bg);
+      color: #fff;
+      padding: 40px 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    nav {
+      background: var(--nav-bg);
+      padding: 15px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    nav a {
+      color: var(--text-color);
+      margin: 0 20px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    section {
+      padding: 50px 20px;
+      max-width: 1000px;
+      margin: auto;
+      background: var(--section-bg);
+      border-radius: 8px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: var(--accent);
+      border-bottom: 2px solid burlywood;
+      padding-bottom: 5px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .h2-icon {
+      font-size: 1.1em;
+      line-height: 1;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid burlywood;
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+      color: var(--text-color);
+      transition: transform 0.2s;
+    }
+
+    .tool-box {
+      background: var(--card-bg);
+      border: 2px solid burlywood;
+      padding: 25px;
+      border-radius: 8px;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .btn {
+      background: burlywood;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      padding: 10px 15px;
+      border-radius: 5px;
+      margin: 5px;
+    }
+
+    .btn:hover {
+      background: var(--accent);
+    }
+
+    .checklist {
+      list-style: none;
+      padding: 0;
+      text-align: left;
+    }
+
+    .checklist li {
+      background: #fff;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 5px;
+      border-left: 4px solid burlywood;
+      color: #333;
+    }
+
+    .care-category {
+      background: var(--card-bg);
+      border: 1px solid burlywood;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .care-header {
+      background: burlywood;
+      color: white;
+      padding: 15px;
+      cursor: pointer;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .care-content {
+      padding: 0 20px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-out;
+      background: #fff;
+      text-align: left;
+      color: #333;
+    }
+
+    .care-category.active .care-content {
+      max-height: 500px;
+      padding: 20px;
+      border-top: 1px solid burlywood;
+    }
+
+    input {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+    }
+
+    #backToTop {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--accent);
+      color: #fff;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      display: none;
+      font-size: 24px;
+      z-index: 2000;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    #breedSearch {
+      width: 100%;
+      max-width: 500px;
+      padding: 12px;
+      font-size: 16px;
+      margin: 20px auto;
+      display: block;
+      border: 2px solid burlywood;
+      border-radius: 25px;
+      outline: none;
+    }
+
+    footer {
+      background: var(--header-bg);
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .catty{
+            border: 5px solid burlywood;
+            padding: 20px;
+            margin: 30px;
+            background-color: beige;
+            border-radius: 20px;
+            box-shadow: 10px 10px 10px grey;
+        }
+
+        #cutie{
+            text-align: center;
+            background-color: bisque;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div style="position: absolute; top: 10px; right: 20px;">
+      <button onclick="toggleDarkMode()" class="btn">Toggle Dark Mode</button>
+    </div>
+    <h1 style="font-size: 50px; ;">🐾Cat World🐾</h1>
+    <h2 style="color: #fefefe;">Professional Knowledge & Interactive Feline Tools</h2>
+  </header>
+
+  <nav>
+    <a href="#about">About</a>
+    <a href="#quiz">Match Me</a>
+    <a href="#breeds">Breeds</a>
+    <a href="#care">Care Hub</a>
+    <a href="#fun">Fun</a>
+    <a href="#contact">Contact </a>
+  </nav>
+
+  <section id="about">
+    <h2 class="section-title"><span class="h2-icon" aria-hidden="true">🐾</span>About</h2>
+    <p><strong>Hi! I am Anokhi Parihar. I am obsessed with cats (although my mother doesn't allow me to keep one) I know very well how tough it is to be Cat Parent, so I decided to create a on which every Cat Parent or "Cat Obsessor" like me can rely on.  </strong></p>
+    <h2 class="section-title"><span class="h2-icon" aria-hidden="true">🛡️</span>Why is Cat World reliable?</h2>
+    <p><strong>Cat World is reliable because it provides accurate and up-to-date information about cats, their behavior, and care needs. The website is designed to be user-friendly and accessible to both novice and experienced cat owners.</strong></p>
+    <h2 class="section-title"><span class="h2-icon" aria-hidden="true">🗣️</span>Decoding Feline Language</h2>
+    <p><strong>Understanding your cat's communication can greatly improve your relationship with them. Here are some key signals to look out for:</strong></p>
+    <div class="grid">
+      <div class="card">
+        <h3>Common Sounds</h3>
+        <p>Short Meow: Greeting. Purr: Contentment. Hiss: Warning. <strong>New:</strong> Trills/Chirrups are friendly
+          greetings; Chattering happens when watching prey.</p>
+      </div>
+      <div class="card">
+        <h3>Body Language</h3>
+        <p>Slow Blink: Trust. Tail Up: Friendly. <strong>New:</strong> Flat whiskers signal fear. Piloerection (puffed
+          fur)
+          means they are terrified.</p>
+      </div>
+      <!-- Enhanced Cards -->
+      <div class="card">
+        <h3>Micro-Expressions</h3>
+        <p><strong>Flehmen Response:</strong> Opening the mouth to "taste-smell" scents. <strong>Muzzle
+            Tension:</strong> A
+          tight mouth can signal pain.</p>
+      </div>
+      <div class="card">
+        <h3>Pro Tips</h3>
+        <p><strong>Blink Back:</strong> Confirm trust. <strong>The Venus Trap:</strong> A belly flash is trust, but
+          often a
+          defensive "ready to fight" pose.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- BREED QUIZ -->
+  <section id="quiz">
+    <h2 class="section-title"><span class="h2-icon" aria-hidden="true">❓</span>Find My Cat Breed Quiz</h2>
+    <div class="tool-box">
+      <div id="quizContainer">
+        <!-- Questions will be dynamically injected here -->
+        <div id="questionArea">
+          <p id="questionText"><strong>Step 1: How talkative should your cat be?</strong></p>
+          <div id="options">
+            <button class="btn" onclick="handleAnswer('vocal', 'yes')">Very Vocal (Chatty!)</button>
+            <button class="btn" onclick="handleAnswer('vocal', 'no')">Quiet & Calm</button>
+          </div>
+        </div>
+
+        <div id="resultArea" style="display:none;">
+          <h3 id="quizResult" style="color: var(--accent);"></h3>
+          <p id="matchReason"></p>
+          <button class="btn" style="background: #8b4513;" onclick="resetQuiz()">Take Quiz Again</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    let currentStep = 1;
+    let quizData = {
+      vocal: '', groom: '', space: '',
+      activity: '', social: '', experience: '',
+      children: '', allergies: ''
+    };
+
+    const questions = [
+      { key: 'vocal', text: 'Step 1: How talkative should your cat be?', opt1: ['Very Vocal', 'yes'], opt2: ['Quiet & Calm', 'no'] },
+      { key: 'groom', text: 'Step 2: Time for grooming?', opt1: ['I love brushing daily!', 'high'], opt2: ['Low maintenance is best', 'low'] },
+      { key: 'space', text: 'Step 3: What is your living space?', opt1: ['Small Apartment', 'small'], opt2: ['Spacious House', 'large'] },
+      { key: 'activity', text: 'Step 4: Energy level preference?', opt1: ['High Energy / Playful', 'active'], opt2: ['Calm / Lap Cat', 'lazy'] },
+      { key: 'social', text: 'Step 5: Do you want a "Velcro" cat?', opt1: ['Yes, always by my side', 'velcro'], opt2: ['Independent is fine', 'aloof'] },
+      { key: 'experience', text: 'Step 6: Your experience level?', opt1: ['First-time Owner', 'new'], opt2: ['Experienced with Cats', 'pro'] },
+      { key: 'children', text: 'Step 7: Are there children or pets?', opt1: ['Yes, a busy home!', 'busy'], opt2: ['No, a quiet home', 'quiet'] },
+      { key: 'allergies', text: 'Step 8: Any allergy concerns?', opt1: ['Yes, need hypoallergenic', 'hypo'], opt2: ['No concerns', 'none'] }
+    ];
+
+    function handleAnswer(key, val) {
+      quizData[key] = val;
+      currentStep++;
+
+      if (currentStep > questions.length) {
+        showResult();
+      } else {
+        updateQuestion();
+      }
+    }
+
+    function updateQuestion() {
+      const q = questions[currentStep - 1];
+      const area = document.getElementById('questionArea');
+      area.innerHTML = `
+        <p><strong>${q.text}</strong></p>
+        <button class="btn" onclick="handleAnswer('${q.key}', '${q.opt1[1]}')">${q.opt1[0]}</button>
+        <button class="btn" onclick="handleAnswer('${q.key}', '${q.opt2[1]}')">${q.opt2[0]}</button>
+      `;
+    }
+
+    function showResult() {
+      document.getElementById('questionArea').style.display = 'none';
+      document.getElementById('resultArea').style.display = 'block';
+
+      let match = "Domestic Shorthair";
+      let reason = "A versatile, wonderful companion for any home!";
+
+      // Logic based on expanded data
+      if (quizData.allergies === 'hypo') {
+        match = "Sphynx or Siberian";
+        reason = "Great choices for those with sensitivities.";
+      } else if (quizData.vocal === 'yes' && quizData.activity === 'active') {
+        match = "Siamese or Bengal";
+        reason = "Highly intelligent and very communicative!";
+      } else if (quizData.groom === 'high' && quizData.social === 'velcro') {
+        match = "Ragdoll or Persian";
+        reason = "The ultimate affectionate lap cats.";
+      } else if (quizData.space === 'large' && quizData.children === 'busy') {
+        match = "Maine Coon";
+        reason = "A sturdy, social 'gentle giant' perfect for families.";
+      } else if (quizData.space === 'small' && quizData.activity === 'lazy') {
+        match = "British Shorthair";
+        reason = "Perfectly content in smaller, quiet environments.";
+      }
+
+      document.getElementById('quizResult').innerText = "Match: " + match;
+      document.getElementById('matchReason').innerText = reason;
+    }
+
+    function resetQuiz() {
+      currentStep = 1;
+      quizData = {};
+      document.getElementById('resultArea').style.display = 'none';
+      document.getElementById('questionArea').style.display = 'block';
+      updateQuestion();
+    }
+  </script>
+
+
+  <!-- BREEDS -->
+  <section id="breeds">
+    <h2 class="section-title"><span class="h2-icon" aria-hidden="true">📘</span>Cat Breed Encyclopedia</h2>
+  <input type="text" id="breedSearch" onkeyup="searchBreeds()" placeholder="Search 50+ breeds..."> </div>
+    <div class="grid" id="breedGrid">
+      <div class="card breed-card">
+        <img src="Abyssinian.jpeg" alt="Abyssinian
+        smiling" style="width:100%; border-radius: 8px;">
+        <h3>Abyssinian</h3>
+        <p>Active and curious.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="American Bobtail.jpeg" alt="American Bobtail" style="width:100%; border-radius: 8px;">
+        <h3>American Bobtail</h3>
+        <p>Wild look, dog-like personality.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="American Curl.jpeg" alt="American Curl" style="width:100%; border-radius: 8px;">
+        <h3>American Curl</h3>
+        <p>Unique backward-curled ears.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="American Shorthair.jpeg" alt="American Shorthair" style="width:100%; border-radius: 8px;">
+        <h3>American Shorthair</h3>
+        <p>Quiet and athletic.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="American Wirehair.jpeg" alt="American Wirehair" style="width:100%; border-radius: 8px;">
+        <h3>American Wirehair</h3>
+        <p>Springy, wiry coat.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Balinese.jpeg" alt="Balinese" style="width:100%; border-radius: 8px;">
+        <h3>Balinese</h3>
+        <p>Vocal and long-haired.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="bengal.jpeg" alt="Bengal" style="width:100%; border-radius: 8px;">
+        <h3>Bengal</h3>
+        <p>Spotted leopard-like coat.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Birman.jpeg" alt="Birman" style="width:100%; border-radius: 8px;">
+        <h3>Birman</h3>
+        <p>Deep blue eyes, silky fur.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Bombay.jpeg" alt="Bombay" style="width:100%; border-radius: 8px;">
+        <h3>Bombay</h3>
+        <p>Miniature black panther.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="British Shorthair.jpeg" alt="British Shorthair" style="width:100%; border-radius: 8px;">
+        <h3>British Shorthair</h3>
+        <p>Chunky and easygoing.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Burmese.jpeg" alt="Burmese" style="width:100%; border-radius: 8px;">
+        <h3>Burmese</h3>
+        <p>Social and people-oriented.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Burmilla.jpeg" alt="Burmilla" style="width:100%; border-radius: 8px;">
+        <h3>Burmilla</h3>
+        <p>Elegant and playful.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Chartreux.jpeg" alt="Chartreux" style="width:100%; border-radius: 8px;">
+        <h3>Chartreux</h3>
+        <p>Quiet and attentive.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Cornish Rex.jpeg" alt="Cornish Rex" style="width:100%; border-radius: 8px;">
+        <h3>Cornish Rex</h3>
+        <p>Soft, curly coat.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Devon Rex.jpeg" alt="Devon Rex" style="width:100%; border-radius: 8px;">
+        <h3>Devon Rex</h3>
+        <p>Pixie-like appearance.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Egyptian Mau.jpeg" alt="Egyptian Mau" style="width:100%; border-radius: 8px;">
+        <h3>Egyptian Mau</h3>
+        <p>Naturally spotted hunter.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Exotic Shorthair.jpeg" alt="Exotic Shorthair" style="width:100%; border-radius: 8px;">
+        <h3>Exotic Shorthair</h3>
+        <p>Persian look, easy coat.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Havana Brown.jpeg" alt="Havana Brown" style="width:100%; border-radius: 8px;">
+        <h3>Havana Brown</h3>
+        <p>Chocolate-colored beauty.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Himalayan.jpeg" alt="Himalayan" style="width:100%; border-radius: 8px;">
+        <h3>Himalayan</h3>
+        <p>Calm and dignified.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Japanese Bobtail.jpeg" alt="Japanese Bobtail" style="width:100%; border-radius: 8px;">
+        <h3>Japanese Bobtail</h3>
+        <p>Short pom-pom tail.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Korat.jpeg" alt="Korat" style="width:100%; border-radius: 8px;">
+        <h3>Korat</h3>
+        <p>Silver-blue luck cat.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="LaPerm.jpeg" alt="LaPerm" style="width:100%; border-radius: 8px;">
+        <h3>LaPerm</h3>
+        <p>Curly-coated and sweet.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Maine Coon.jpeg" alt="Maine Coon" style="width:100%; border-radius: 8px;">
+        <h3>Maine Coon</h3>
+        <p>The fluffy gentle giant.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Manx.jpeg" alt="Manx" style="width:100%; border-radius: 8px;">
+        <h3>Manx</h3>
+        <p>Tailless and sturdy.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Munchkin.jpeg" alt="Munchkin" style="width:100%; border-radius: 8px;">
+        <h3>Munchkin</h3>
+        <p>Short legs, big heart.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Nebelung.jpeg" alt="Nebelung" style="width:100%; border-radius: 8px;">
+        <h3>Nebelung</h3>
+        <p>Shimmering blue-gray coat.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Norwegian Forest Cat.jpeg" alt="Norwegian Forest Cat" style="width:100%; border-radius: 8px;">
+        <h3>Norwegian Forest Cat</h3>
+        <p>Large forest climber.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Ocicat.jpeg" alt="Ocicat" style="width:100%; border-radius: 8px;">
+        <h3>Ocicat</h3>
+        <p>Wild look, domestic temperament.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Oriental Shorthair.jpeg" alt="Oriental Shorthair" style="width:100%; border-radius: 8px;">
+        <h3>Oriental Shorthair</h3>
+        <p>Slender and talkative.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Persian.jpeg" alt="Persian" style="width:100%; border-radius: 8px;">
+        <h3>Persian</h3>
+        <p>Regal and luxurious.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Ragdoll.jpeg" alt="Ragdoll" style="width:100%; border-radius: 8px;">
+        <h3>Ragdoll</h3>
+        <p>Floppy and affectionate.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Russian Blue.jpeg" alt="Russian Blue" style="width:100%; border-radius: 8px;">
+        <h3>Russian Blue</h3>
+        <p>Reserved and elegant.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Savannah.jpeg" alt="Savannah" style="width:100%; border-radius: 8px;">
+        <h3>Savannah</h3>
+        <p>Tall, lean, and active.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Scottish Fold.jpeg" alt="Scottish Fold" style="width:100%; border-radius: 8px;">
+        <h3>Scottish Fold</h3>
+        <p>Folded ears, owl-like look.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Selkirk Rex.jpeg" alt="Selkirk Rex" style="width:100%; border-radius: 8px;">
+        <h3>Selkirk Rex</h3>
+        <p>Curly-haired "sheep" cat.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Siamese.jpeg" alt="Siamese" style="width:100%; border-radius: 8px;">
+        <h3>Siamese</h3>
+        <p>Vocal and demanding.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Siberian.jpeg" alt="Siberian" style="width:100%; border-radius: 8px;">
+        <h3>Siberian</h3>
+        <p>Hardy and agile.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Singapura.jpeg" alt="Singapura" style="width:100%; border-radius: 8px;">
+        <h3>Singapura</h3>
+        <p>Small and high-energy.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Snowshoe.jpeg" alt="Snowshoe" style="width:100%; border-radius: 8px;">
+        <h3>Snowshoe</h3>
+        <p>White-pawed Siamese mix.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Somali.jpeg" alt="Somali" style="width:100%; border-radius: 8px;">
+        <h3>Somali</h3>
+        <p>Fox-like and intelligent.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Sphynx.jpeg" alt="Sphynx" style="width:100%; border-radius: 8px;">
+        <h3>Sphynx</h3>
+        <p>Hairless and cuddly.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Tonkinese.jpeg" alt="Tonkinese" style="width:100%; border-radius: 8px;">
+        <h3>Tonkinese</h3>
+        <p>People-loving and smart.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Toyger.jpeg" alt="Toyger" style="width:100%; border-radius: 8px;">
+        <h3>Toyger</h3>
+        <p>Tiger-striped domestic.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Turkish Van.jpeg" alt="Turkish Van" style="width:100%; border-radius: 8px;">
+        <h3>Turkish Van</h3>
+        <p>Graceful long-hair.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Lykoi.jpeg" alt="Ukrainian Levkoy" style="width:100%; border-radius: 8px;">
+        <h3>Lykoi</h3>
+        <p>The "werewolf" cat.</p>
+      </div>
+      <div class="card breed-card">
+        <img src="Khao Manee.jpeg" alt="Khao Manee" style="width:100%; border-radius: 8px;">earc
+        <h3>Khao Manee</h3>
+        <p>Rare diamond-eyed cat.</p>
+      </div>
+      <div class="card breed-card">
+        <h3>Chausie</h3>
+        <p>Jungle-cat hybrid looks.</p>
+      </div>
+      <div class="card breed-card">
+        <h3>Pixie-bob</h3>
+        <p>Brave bobcat lookalike.</p>
+      </div>
+      <div class="card breed-card">
+        <h3>Peterbald</h3>
+        <p>Elegant hairless Russian.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARE HUB -->
+  <section id="care">
+    <h2 class="section-title"><span class="h2-icon" aria-hidden="true">💖</span>Care Hub</h2>
+    <div class="care-category">
+      <div class="care-header" onclick="toggleCare(this)">01. Advanced Nutrition <span>+</span></div>
+      <div class="care-content">
+        <p>Cats require taurine, an essential amino acid. Always choose high-quality animal protein over plant-based
+          fillers.</p>
+      </div>
+    </div>
+    <div class="care-category">
+      <div class="care-header" onclick="toggleCare(this)">02. Hydration Tips <span>+</span></div>
+      <div class="care-content">
+        <p>Many cats don't drink enough. Try a water fountain or adding wet food to their diet to increase liquid
+          intake.</p>
+      </div>
+    </div>
+    <div class="care-category">
+      <div class="care-header" onclick="toggleCare(this)">03. Dental Health <span>+</span></div>
+      <div class="care-content">
+        <p>Dental disease is common. Regular brushing or dental treats can prevent costly vet visits and tooth loss.</p>
+      </div>
+    </div>
+
+    <script>
+      function calculateCalories() {
+        // 1. Get the weight value
+        const weightInput = document.getElementById('catWeight');
+        const resultDisplay = document.getElementById('calorieResult');
+
+        // 2. Convert value to a number
+        const weight = parseFloat(weightInput.value);
+
+        // 3. Check if input is valid
+        if (!isNaN(weight) && weight > 0) {
+          // Formula: 50 kcal per kg (average maintenance)
+          const calories = Math.round(weight * 50);
+          resultDisplay.innerText = "Estimated Daily Calories: " + calories + " kcal";
+        } else {
+          resultDisplay.innerText = "Please enter a valid weight (e.g., 4.5).";
+        }
+      }
+    </script>
+    <div class="tool-box">
+      <h3>Daily Feeding Calculator</h3>
+      <input type="number" id="catWeight" placeholder="Weight (kg)" style="width: 120px;">
+      <button onclick="calculateCalories()" class="btn">Get Calories</button>
+      <p id="calorieResult" style="font-weight:bold;"></p>
+    </div>
+
+    
+
+    <div class="tool-box" style="text-align: left; background: #fff;">
+      <h3 style="color: #8b4513;">Weekly Health Checklist</h3>
+      <ul class="checklist">
+        <li><input type="checkbox"> Eyes clear and bright.</li>
+        <li><input type="checkbox"> Ears clean and free of dark wax.</li>
+        <li><input type="checkbox"> Coat smooth without mats.</li>
+        <li><input type="checkbox"> Weight remains stable.</li>
+      </ul>
+    </div>
+  </section>
+
+  <script>function searchBreeds() {
+      const input = document.getElementById('breedSearch').value.toLowerCase();
+      const grid = document.getElementById('breedGrid');
+      const cards = grid.getElementsByClassName('breed-card');
+
+      for (let i = 0; i < cards.length; i++) {
+        const card = cards[i]; const title = card.querySelector('h3'); // Find the heading
+        // SAFETY CHECK: If this card has no <h3> (like your search bar card), skip it!
+        if (!title) continue;
+
+        const breedName = title.innerText.toLowerCase();
+
+        if (breedName.includes(input)) {
+          card.style.display = "";
+        } else {
+          card.style.display = "none";
+        }
+      }
+    }</script>
+
+  <!-- FUN -->
+  <section id="fun">
+    <h2 class="section-title"><span class="h2-icon" aria-hidden="true">🎉</span>Interactive Fun</h2>
+    <div class="grid">
+      <!-- Age Converter -->
+      <div class="tool-box">
+        <h3>Age Converter</h3>
+        <input type="number" id="catAgeInput" placeholder="Years" style="width: 100px;">
+        <button onclick="calculateCatAge()" class="btn">To Human Years</button>
+        <p id="ageResult" style="font-weight:bold; margin-top:10px;"></p>
+      </div>
+
+      <!-- Random Cat Fact -->
+      <div class="tool-box">
+        <h3>Random Cat Fact</h3>
+        <button onclick="showRandomFact()" class="btn">New Fact</button>
+        <p id="factDisplay" style="margin-top:15px; font-weight:bold;">Click for a fact!</p>
+      </div>
+
+      <!-- Cat Name Generator -->
+      <div class="tool-box">
+        <h3>Cat Name Generator</h3>
+        <button onclick="generateCatName()" class="btn">Generate Name</button>
+        <p id="nameDisplay" style="margin-top:15px; font-weight:bold; color: #8b4513; font-size: 1.1em;">Find a name!
+        </p>
+      </div>
+    </div>
+  </section>
+   
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2 class="section-title"><span class="h2-icon" aria-hidden="true">📩</span>Contact Us</h2>
+    <p><strong>If you have any questions or feedback, feel free to reach out to us at: -</strong></p>
+    <p><i><span
+          style="background-color: #ff5ee4; padding: 2px 4px; border-radius: 4px;">catworldbyanokhi@gmail.com</span></i></p>
+
+    <div class="catty">
+      <p id="cutie">THANK YOU FOR VISITING!😸⭐</p>
+    </div>
+  </section>
+
+
+
+  <footer>
+    <p>&copy; 2026 Cat World Encyclopedia.</p>
+  </footer>
+
+  <button id="backToTop" onclick="scrollToTop()">↑</button>
+
+  <script>
+    let quizData = { space: '', groom: '', vocal: '' };
+
+    function toggleDarkMode() { document.body.classList.toggle('dark-mode'); }
+    function toggleCare(el) { el.parentElement.classList.toggle('active'); }
+
+    window.onscroll = function () {
+      const btn = document.getElementById("backToTop");
+      btn.style.display = (document.documentElement.scrollTop > 300) ? "block" : "none";
+    };
+
+    function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+    function searchBreeds() {
+      let input = document.getElementById('breedSearch').value.toLowerCase();
+      let cards = document.getElementsByClassName('breed-card');
+      for (let card of cards) {
+        card.style.display = card.innerText.toLowerCase().includes(input) ? "" : "none";
+      }
+    }
+
+    function calculateCalories() {
+      const weight = document.getElementById('catWeight').value;
+      if (weight) {
+        document.getElementById('calorieResult').innerText = "Est. Daily Calories: " + (Math.round(weight * 30 + 70)) + " kcal";
+      }
+    }
+
+    function calculateCatAge() {
+      const age = document.getElementById('catAgeInput').value;
+      if (age) {
+        let humanAge = age == 1 ? 15 : age == 2 ? 24 : 24 + (age - 2) * 4;
+        document.getElementById('ageResult').innerText = humanAge + " human years old";
+      }
+    }
+
+    function showRandomFact() {
+      const facts = ["32 muscles per ear.", "70% of life is sleep.", "Group of cats is a 'clowder'.", "Cats can make 100 different sounds."];
+      document.getElementById('factDisplay').innerText = facts[Math.floor(Math.random() * facts.length)];
+    }
+
+    function generateCatName() {
+      const titles = ["Sir", "Lady", "Captain", "Professor", "Baron", "Duchess", "General", "Major", "Lord", "Empress"];
+      const names = ["Fluffernut", "Whiskers", "Paw-l McCartney", "Biscuits", "Mochi", "Noodle", "Cheddar", "Luna", "Pickle", "Tater Tot"];
+      const suffixes = ["the Great", "of Meow-ington", "First of His Name", "the Brave", "the Sleepy", "the Formidable Hunter", "von Fluff"];
+
+      const randomTitle = titles[Math.floor(Math.random() * titles.length)];
+      const randomName = names[Math.floor(Math.random() * names.length)];
+      const randomSuffix = suffixes[Math.floor(Math.random() * suffixes.length)];
+
+      document.getElementById('nameDisplay').innerText = `${randomTitle} ${randomName} ${randomSuffix}`;
+    }
+
+    function setQuiz(key, value) { quizData[key] = value; }
+
+    function runQuiz() {
+      let res = document.getElementById('quizResult');
+      let match = (quizData.vocal === 'yes') ? "Siamese" :
+        (quizData.groom === 'high') ? "Maine Coon" :
+          (quizData.space === 'small') ? "Russian Blue" : "Bengal";
+      res.innerText = "Match: " + match + "!";
+    }
+
+    window.onscroll = function () {
+      let btn = document.getElementById("backToTop");
+      if (document.documentElement.scrollTop > 300) {
+        btn.style.display = "block";
+      } else {
+        btn.style.display = "none";
+      }
+    };
+  </script>
+
+  <!-- ADDED BACK TO TOP BUTTON -->
+  <button id="backToTop" title="Go to top">↑</button>
+
+  <script>
+    const btt = document.getElementById("backToTop");
+    window.onscroll = function () {
+      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        btt.style.display = "block";
+      } else {
+        btt.style.display = "none";
+      }
+    };
+    btt.onclick = function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+  </script>
+
+  <!-- START OF DARK MODE TOGGLE (STANDALONE) -->
+  <script>
+    (function () {
+      // 1. Check if the toggle button already exists in the header
+      // The provided HTML already has: <button onclick="toggleDarkMode()" class="btn">Toggle Dark Mode</button>
+
+      // 2. Add persistence (Remember the user's choice)
+      window.addEventListener('DOMContentLoaded', () => {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+          document.body.classList.add('dark-mode');
+        }
+      });
+
+      // 3. Define the toggle logic globally so the existing button can use it
+      window.toggleDarkMode = function () {
+        const isDark = document.body.classList.toggle('dark-mode');
+        // Save preference to local storage
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      };
+    })();
+  </script>
+  <!-- END OF DARK MODE TOGGLE -->
+
+  <button id="backToTop" onclick="scrollToTop()" title="Go to top">↑</button>
+
+  <script>
+    // 1. Unified Theme Management (Dark/Light Mode)
+    function toggleDarkMode() {
+      const isDark = document.body.classList.toggle('dark-mode');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    }
+
+    // Auto-apply theme on load based on system or saved choice
+    (function initTheme() {
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved === 'dark' || (!saved && prefersDark)) {
+        document.body.classList.add('dark-mode');
+      }
+    })();
+
+    // 2. Back to Top Button Logic
+    window.onscroll = function () {
+      const btt = document.getElementById("backToTop");
+      if (btt) {
+        // Show button after 300px of scrolling
+        btt.style.display = (window.scrollY > 300) ? "block" : "none";
+      }
+    };
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // 3. Tool Box Logic (Age, Facts, Names)
+    function calculateCatAge() {
+      const input = document.getElementById('catAgeInput');
+      const result = document.getElementById('ageResult');
+      if (input && input.value) {
+        const age = parseFloat(input.value);
+        // Standard formula: 1yr=15, 2yrs=24, then +4/yr
+        let humanYears = age <= 1 ? age * 15 : age <= 2 ? 15 + (age - 1) * 9 : 24 + (age - 2) * 4;
+        result.innerText = Math.round(humanYears) + " human years old";
+      }
+    }
+
+    function showRandomFact() {
+      const facts = [
+        "Cats spend 70% of their lives sleeping.",
+        "A group of cats is called a 'clowder'.",
+        "A cat's nose print is unique, like a human fingerprint.",
+        "Cats have 32 muscles in each ear.",
+        "Tigers share 95.6% of their DNA with domestic cats."
+      ];
+      const fact = facts[Math.floor(Math.random() * facts.length)];
+      document.getElementById('factDisplay').innerText = fact;
+    }
+
+    function generateCatName() {
+      const names = ["Luna", "Milo", "Leo", "Nala", "Simba", "Chloe", "Mochi", "Jasper"];
+      const name = names[Math.floor(Math.random() * names.length)];
+      document.getElementById('nameDisplay').innerText = "Suggested Name: " + name;
+    }
+
+    // 4. Care Hub Accordion
+    function toggleCare(el) {
+      el.parentElement.classList.toggle('active');
+    }
+  </script>
+
+
+
+
+</body>
+</html>
