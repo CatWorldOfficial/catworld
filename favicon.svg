@@ -11,6 +11,14 @@
   </defs>
   <rect x="4" y="4" width="56" height="56" rx="16" fill="url(#bg)"/>
   <path d="M49 17c-4.4-5.1-10.8-8-17.4-8-12.3 0-22.3 10-22.3 22.3s10 22.3 22.3 22.3c6.6 0 13-2.9 17.4-8" fill="none" stroke="url(#cat)" stroke-linecap="round" stroke-width="7"/>
-  <path d="M36 11l-3.7 6.4-5.3-4.2-1.1 7.1" fill="none" stroke="url(#cat)" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.1"/>
-  <circle cx="39.6" cy="25.8" r="2.1" fill="#f4d7b8"/>
+  <path d="M35 11l-3.3 5.9-4.8-3.9-1.2 6.4" fill="none" stroke="url(#cat)" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+  <path d="M29 20.5c2.1-2.7 5.5-4.4 9.3-4.4 5.8 0 10.5 4 10.5 8.9 0 4.9-4.7 8.9-10.5 8.9-3.8 0-7.2-1.7-9.3-4.4" fill="#f7dfc2" opacity=".96"/>
+  <circle cx="35.2" cy="24.4" r="1.5" fill="#111111"/>
+  <circle cx="42" cy="24.4" r="1.5" fill="#111111"/>
+  <path d="M38.6 27.1l1.2 1.5-1.2 1.2-1.1-1.2z" fill="#d4867d"/>
+  <path d="M35.5 28.7c1.8 1.7 4.1 1.7 5.8 0" fill="none" stroke="#111111" stroke-linecap="round" stroke-width="1.7"/>
+  <path d="M33.8 28.2c-2 .2-3.5.7-5 1.5" fill="none" stroke="#8d6f61" stroke-linecap="round" stroke-width="1.2"/>
+  <path d="M43.6 28.2c2 .2 3.5.7 5 1.5" fill="none" stroke="#8d6f61" stroke-linecap="round" stroke-width="1.2"/>
+  <path d="M33.7 30.5c-1.8.4-3 .9-4.4 1.9" fill="none" stroke="#8d6f61" stroke-linecap="round" stroke-width="1.1"/>
+  <path d="M43.7 30.5c1.8.4 3 .9 4.4 1.9" fill="none" stroke="#8d6f61" stroke-linecap="round" stroke-width="1.1"/>
 </svg>
